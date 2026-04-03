@@ -36,7 +36,7 @@ struct RootView: View {
 
     @ViewBuilder
     private func homeTabView(pages: ChildPages<AnyObject, RootComponentTab>) -> some View {
-        if let homeTab = pages.items.first?.instance as? RootComponentTabHome {
+        if let homeTab = pages.items.first?.instance as? RootComponentTab.Home {
             HomeTabView(component: homeTab.component)
         } else {
             Color.clear
@@ -45,7 +45,7 @@ struct RootView: View {
 
     @ViewBuilder
     private func settingsTabView(pages: ChildPages<AnyObject, RootComponentTab>) -> some View {
-        if pages.items.count > 1, let settingsTab = pages.items[1].instance as? RootComponentTabSettings {
+        if pages.items.count > 1, let settingsTab = pages.items[1].instance as? RootComponentTab.Settings {
             SettingsView(component: settingsTab.component.component)
         } else {
             Color.clear
@@ -68,9 +68,9 @@ struct HomeTabView: View {
         let child = stackObserver.value.active.instance
 
         switch child {
-        case let homeChild as HomeTabComponentChildHome:
+        case let homeChild as HomeTabComponentChild.Home:
             HomeView(component: homeChild.component)
-        case let detailChild as HomeTabComponentChildDetail:
+        case let detailChild as HomeTabComponentChild.Detail:
             DetailView(component: detailChild.component)
         default:
             EmptyView()

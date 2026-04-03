@@ -9,6 +9,11 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.serialization.Serializable
 
+private object ServerConfig {
+    const val PORT = 8080
+    const val HOST = "0.0.0.0"
+}
+
 @Serializable
 data class GreetingResponse(
     val message: String,
@@ -18,8 +23,8 @@ data class GreetingResponse(
 fun main() {
     embeddedServer(
         Netty,
-        port = Constants.SERVER_PORT,
-        host = Constants.SERVER_HOST,
+        port = ServerConfig.PORT,
+        host = ServerConfig.HOST,
         module = Application::module,
     ).start(wait = true)
 }

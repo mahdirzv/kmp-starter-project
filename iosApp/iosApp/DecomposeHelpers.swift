@@ -22,7 +22,7 @@ class ObservableValue<T: AnyObject>: ObservableObject {
 class FlowObserver<T>: ObservableObject {
     @Published var value: T
 
-    init(flow: any SkieSwiftStateFlow<T>, initial: T) {
+    init(flow: SkieSwiftStateFlow<T>, initial: T) {
         self.value = initial
         Task { [weak self] in
             for await newValue in flow {
