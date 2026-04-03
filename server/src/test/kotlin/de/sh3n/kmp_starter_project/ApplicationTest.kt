@@ -15,6 +15,16 @@ class ApplicationTest {
         }
         val response = client.get("/")
         assertEquals(HttpStatusCode.OK, response.status)
-        assertEquals("Ktor: ${Greeting().greet()}", response.bodyAsText())
+        assertEquals("KMP Starter Server", response.bodyAsText())
+    }
+
+    @Test
+    fun testGreeting() = testApplication {
+        application {
+            module()
+        }
+        val response = client.get("/greeting")
+        assertEquals(HttpStatusCode.OK, response.status)
+        assertEquals(ContentType.Application.Json.withCharset(Charsets.UTF_8), response.contentType())
     }
 }
