@@ -20,6 +20,14 @@
 - `No such module 'Shared'` LSP errors in Swift files are expected without an Xcode build. The KMP framework must be compiled first. These are not real errors.
 - SKIE handles flow/sealed class bridging but the iOS side still needs `ObservableValue` helpers for Decompose `Value<T>` → SwiftUI `@Published`.
 
+## SKIE Swift Type Naming
+
+- **Kotlin sealed class children use dot notation in Swift.** SKIE generates `swift_name` ObjC attributes that map flat ObjC names to Swift dot notation:
+  - Kotlin `RootComponent.Tab.Home` → ObjC `SharedRootComponentTabHome` → Swift `RootComponentTab.Home`
+  - **NOT** `RootComponentTabHome` in Swift — that's the ObjC name, not the Swift name.
+- **Verify in the generated ObjC header** at `shared/build/bin/iosArm64/debugFramework/Shared.framework/Headers/Shared.h` — look for `__attribute__((swift_name(...)))` annotations.
+- **`any` keyword has no effect on concrete generic types** like `SkieSwiftStateFlow<T>`. Just use `SkieSwiftStateFlow<T>` directly.
+
 ## OpenCode / AGENTS.md
 
 - **AGENTS.md should be committed to git** — it's project-level context shared with your team and AI agents.

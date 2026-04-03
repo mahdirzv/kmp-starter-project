@@ -24,7 +24,7 @@ shared/                     # KMP shared module (business logic, navigation, DI)
     data/remote/            # HttpClientFactory, ApiService (Ktor client)
     data/repository/        # Repository implementations
     domain/repository/      # Repository interfaces
-    di/                     # Koin modules (networkModule, repositoryModule, viewModelModule)
+    di/                     # Koin modules (networkModule, repositoryModule)
     navigation/             # Decompose root navigation (RootComponent, ChildPages)
     navigation/tabs/        # Per-tab components (HomeTab, SettingsTab)
     presentation/home/      # HomeComponent + DefaultHomeComponent
@@ -68,7 +68,7 @@ gradle/libs.versions.toml   # All dependency versions (single source of truth)
 | iOS native UI | `iosApp/iosApp/ContentView.swift` | SwiftUI synced to Decompose ChildPages |
 | Android entry | `composeApp/src/androidMain/.../MainActivity.kt` | StarterApp for Application class |
 | Desktop entry | `composeApp/src/jvmMain/.../main.kt` | Koin + DefaultComponentContext |
-| DI wiring | `shared/.../di/Modules.kt` | networkModule, repositoryModule, viewModelModule |
+| DI wiring | `shared/.../di/Modules.kt` | networkModule, repositoryModule |
 
 ## Initialization Flow
 
