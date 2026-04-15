@@ -6,7 +6,6 @@ import de.sh3n.kmp_starter_project.navigation.tabs.HomeTabComponent
 import de.sh3n.kmp_starter_project.navigation.tabs.SettingsTabComponent
 
 interface RootComponent {
-
     val pages: Value<ChildPages<*, Tab>>
 
     fun selectTab(index: Int)
