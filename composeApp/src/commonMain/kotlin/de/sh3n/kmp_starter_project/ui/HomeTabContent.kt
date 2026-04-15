@@ -6,7 +6,6 @@ import com.arkivanov.decompose.extensions.compose.stack.Children
 import com.arkivanov.decompose.extensions.compose.stack.animation.fade
 import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
 import de.sh3n.kmp_starter_project.navigation.tabs.HomeTabComponent
-import de.sh3n.kmp_starter_project.ui.screens.detail.DetailScreen
 import de.sh3n.kmp_starter_project.ui.screens.home.HomeScreen
 
 @Composable
@@ -18,7 +17,6 @@ fun HomeTabContent(component: HomeTabComponent, modifier: Modifier = Modifier) {
     ) {
         when (val child = it.instance) {
             is HomeTabComponent.Child.Home -> HomeScreen(component = child.component)
-            is HomeTabComponent.Child.Detail -> DetailScreen(component = child.component)
         }
     }
 }

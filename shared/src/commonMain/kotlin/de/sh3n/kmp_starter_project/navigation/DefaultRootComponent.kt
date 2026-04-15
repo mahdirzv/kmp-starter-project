@@ -7,14 +7,12 @@ import com.arkivanov.decompose.router.pages.PagesNavigation
 import com.arkivanov.decompose.router.pages.childPages
 import com.arkivanov.decompose.router.pages.select
 import com.arkivanov.decompose.value.Value
-import de.sh3n.kmp_starter_project.domain.repository.GreetingRepository
 import de.sh3n.kmp_starter_project.navigation.tabs.DefaultHomeTabComponent
 import de.sh3n.kmp_starter_project.navigation.tabs.DefaultSettingsTabComponent
 import kotlinx.serialization.Serializable
 
 class DefaultRootComponent(
     componentContext: ComponentContext,
-    private val greetingRepository: GreetingRepository,
 ) : RootComponent, ComponentContext by componentContext {
 
     private val navigation = PagesNavigation<TabConfig>()
@@ -39,16 +37,11 @@ class DefaultRootComponent(
     private fun child(config: TabConfig, childComponentContext: ComponentContext): RootComponent.Tab =
         when (config) {
             is TabConfig.Home -> RootComponent.Tab.Home(
-                DefaultHomeTabComponent(
-                    componentContext = childComponentContext,
-                    greetingRepository = greetingRepository,
-                )
+                DefaultHomeTabComponent(componentContext = childComponentContext)
             )
 
             is TabConfig.Settings -> RootComponent.Tab.Settings(
-                DefaultSettingsTabComponent(
-                    componentContext = childComponentContext,
-                )
+                DefaultSettingsTabComponent(componentContext = childComponentContext)
             )
         }
 
