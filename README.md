@@ -1,53 +1,73 @@
 # KMP Base Scaffold
 
-Minimal Kotlin Multiplatform scaffold targeting Android, iOS, and Desktop (JVM).
+A minimal Kotlin Multiplatform starter for Android, iOS, and Desktop (JVM). Keep the base small, tokenized, and easy to extend with optional packs.
 
-## Project Structure
+---
 
-* [/composeApp](./composeApp/src) is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - [commonMain](./composeApp/src/commonMain/kotlin) is for code that's common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple's CoreCrypto for the iOS part of your Kotlin app,
-    the [iosMain](./composeApp/src/iosMain/kotlin) folder would be the right place for such calls.
-    Similarly, if you want to edit the Desktop (JVM) specific part, the [jvmMain](./composeApp/src/jvmMain/kotlin)
-    folder is the appropriate location.
+## Quick start
 
-* [/iosApp](./iosApp/iosApp) contains iOS applications. Even if you're sharing your UI with Compose Multiplatform,
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+```bash
+./gradlew :shared:build
+./gradlew :composeApp:build
+```
 
-* [/shared](./shared/src) is for the code that will be shared between all targets in the project.
-  The most important subfolder is [commonMain](./shared/src/commonMain/kotlin).
-
-## Build and Run
+## Targets
 
 ### Android
-```shell
+
+```bash
 ./gradlew :composeApp:assembleDebug
 ```
 
 ### Desktop (JVM)
-```shell
+
+```bash
 ./gradlew :composeApp:run
 ```
 
 ### iOS
-Open the [/iosApp](./iosApp) directory in Xcode and run it from there.
+
+Open the `iosApp` directory in Xcode and run it there.
+
+## Commands
+
+| Command | Description |
+|---|---|
+| `./gradlew :shared:build` | Compile the shared module |
+| `./gradlew :composeApp:build` | Build the Compose Multiplatform app |
+| `./gradlew :composeApp:assembleDebug` | Build the Android debug APK |
+| `./gradlew :composeApp:run` | Run the Desktop app |
+
+## Project structure
+
+```
+shared/                     # KMP shared module (navigation, DI, smoke-test logic)
+composeApp/                 # Compose Multiplatform UI module
+  src/commonMain/...        # shared UI + theme tokens
+  src/androidMain/...       # Android entry points
+  src/jvmMain/...           # Desktop entry point
+iosApp/                     # Native iOS app (SwiftUI entry point)
+gradle/libs.versions.toml   # Dependency versions (single source of truth)
+```
 
 ## Architecture
 
-This is a **minimal scaffold** with:
-- Navigation shell (Decompose ChildPages + tabs)
-- DI baseline (Koin module structure)
-- Theme token system
-- One smoke-test screen (Home displays platform name)
+This base includes:
+- Gradle / settings / version-catalog plumbing
+- shared source-set structure
+- platform entry points for Android / iOS / JVM
+- app shell + navigation shell
+- DI baseline
+- theme token system
+- one minimal smoke-test screen
 
-**Not included (add when needed):**
-- Networking/HTTP client
-- Repository layer
-- Auth implementation
-- Server module
+Not included by default:
+- networking / HTTP client
+- repository layer
+- auth provider implementations
+- server module
+- product/demo feature flows
 
----
+## Working with an AI agent?
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+Send [`AGENTS.md`](./AGENTS.md) to your agent instead of this file. It contains the project-specific context, conventions, and extension notes.
