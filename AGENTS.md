@@ -48,24 +48,24 @@ shared/src/commonMain/kotlin/com/example/kmp_starter_project/
 
 ## Optional Pack Modules
 
-These are real Gradle/KMP pack modules, not loose reference folders.
+These are real Gradle/KMP pack modules, not loose reference folders or nested submodule trees.
 
 ```text
 kmp/auth/
-  shared/src/commonMain/kotlin/auth/
+  src/commonMain/kotlin/auth/
     data/
     domain/
     di/
-  composeApp/src/commonMain/kotlin/auth/ui/
+    ui/
 
 kmp/room_data/
-  shared/src/commonMain/kotlin/tasks/
+  src/commonMain/kotlin/tasks/
     data/
     domain/
     di/
 
 kmp/ui_theme/
-  composeApp/src/commonMain/kotlin/ui/theme/
+  src/commonMain/kotlin/ui/theme/
 ```
 
 ## Scope
@@ -95,7 +95,7 @@ kmp/ui_theme/
 | Add shared feature logic | `shared/src/commonMain/.../{feature}/` | Keep component + implementation together unless a deeper split adds value |
 | Change root wiring | `shared/.../root/` + `composeApp/.../root/ui/` | Root owns navigation shell only |
 | Change theme | `composeApp/.../ui/theme/` | Colors, typography, tokens, theme |
-| Update reusable pack modules | `kmp/` | Keep pack internals flat inside each source root, but preserve real module/source-set structure |
+| Update reusable pack modules | `kmp/` | Keep each pack as a single imported Gradle module with flat source-set roots under that pack |
 | Platform-specific code | `shared/src/{platform}Main/` | Use `expect`/`actual` |
 | DI wiring | `shared/.../di/Modules.kt` | Keep wiring minimal |
 
@@ -114,7 +114,7 @@ iOS:      iOSApp → initKoin → RootComponent → SwiftUI bridge
 - Do not reintroduce folders like `ui/screens/*`, `presentation/*`, or `navigation/tabs/*` unless there is a strong reason.
 - Keep shared UI tokenized; avoid hardcoded colors, spacing, or sizing.
 - Keep the base app minimal; move reusable extensions into packs.
-- Keep pack internals flat inside each source root, but do not strip away the KMP module/source-set structure or the IDE will stop treating them as usable Kotlin/Compose modules.
+- Keep pack internals flat inside each pack's `src/...` roots, and keep the pack directory itself as the module root so the IDE imports it cleanly.
 - Use `expect`/`actual` for platform-specific logic.
 - Repository/network/auth/server concerns stay out of the live base unless intentionally added.
 

@@ -71,24 +71,24 @@ shared/src/commonMain/kotlin/.../
 
 ### Optional pack modules
 
-These are real Gradle/KMP pack modules so Android Studio treats them as Kotlin/Compose source, not loose reference files.
+These are real Gradle/KMP pack modules so Android Studio imports `kmp/auth`, `kmp/room_data`, and `kmp/ui_theme` directly as Kotlin/Compose source modules instead of nested reference trees.
 
 ```text
 kmp/auth/
-  shared/src/commonMain/kotlin/auth/
+  src/commonMain/kotlin/auth/
     data/
     domain/
     di/
-  composeApp/src/commonMain/kotlin/auth/ui/
+    ui/
 
 kmp/room_data/
-  shared/src/commonMain/kotlin/tasks/
+  src/commonMain/kotlin/tasks/
     data/
     domain/
     di/
 
 kmp/ui_theme/
-  composeApp/src/commonMain/kotlin/ui/theme/
+  src/commonMain/kotlin/ui/theme/
 ```
 
 ## Architecture
@@ -116,7 +116,7 @@ Not included by default in the live scaffold:
 - Avoid folders like `ui/screens/*`, `presentation/*`, or `navigation/tabs/*` unless they add real value.
 - Keep shared UI tokenized; avoid hardcoded spacing, radii, and colors.
 - Keep the base app small; push reusable extensions into packs.
-- Keep pack internals flat inside the source root, but do not remove the KMP module/source-set scaffolding those packs need to stay usable.
+- Keep pack internals flat inside each pack's `src/...` roots so the pack directory itself remains the canonical IDE module.
 
 ## Working with an AI agent?
 
