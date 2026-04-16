@@ -1,4 +1,4 @@
-package de.sh3n.kmp_starter_project.presentation.home
+package de.sh3n.kmp_starter_project.home
 
 import kotlinx.coroutines.flow.StateFlow
 

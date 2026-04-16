@@ -1,4 +1,4 @@
-package de.sh3n.kmp_starter_project.presentation.settings
+package de.sh3n.kmp_starter_project.settings
 
 import com.arkivanov.decompose.ComponentContext
 

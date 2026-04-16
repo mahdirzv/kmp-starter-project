@@ -1,4 +1,4 @@
-package de.sh3n.kmp_starter_project.navigation
+package de.sh3n.kmp_starter_project.root
 
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.pages.ChildPages
@@ -7,8 +7,8 @@ import com.arkivanov.decompose.router.pages.PagesNavigation
 import com.arkivanov.decompose.router.pages.childPages
 import com.arkivanov.decompose.router.pages.select
 import com.arkivanov.decompose.value.Value
-import de.sh3n.kmp_starter_project.navigation.tabs.DefaultHomeTabComponent
-import de.sh3n.kmp_starter_project.navigation.tabs.DefaultSettingsTabComponent
+import de.sh3n.kmp_starter_project.home.DefaultHomeComponent
+import de.sh3n.kmp_starter_project.settings.DefaultSettingsComponent
 import kotlinx.serialization.Serializable
 
 class DefaultRootComponent(
@@ -37,11 +37,11 @@ class DefaultRootComponent(
     private fun child(config: TabConfig, childComponentContext: ComponentContext): RootComponent.Tab =
         when (config) {
             is TabConfig.Home -> RootComponent.Tab.Home(
-                DefaultHomeTabComponent(componentContext = childComponentContext)
+                DefaultHomeComponent(componentContext = childComponentContext)
             )
 
             is TabConfig.Settings -> RootComponent.Tab.Settings(
-                DefaultSettingsTabComponent(componentContext = childComponentContext)
+                DefaultSettingsComponent(componentContext = childComponentContext)
             )
         }
 

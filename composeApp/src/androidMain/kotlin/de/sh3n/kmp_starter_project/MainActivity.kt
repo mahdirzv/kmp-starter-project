@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.arkivanov.decompose.defaultComponentContext
-import de.sh3n.kmp_starter_project.navigation.DefaultRootComponent
+import de.sh3n.kmp_starter_project.root.DefaultRootComponent
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

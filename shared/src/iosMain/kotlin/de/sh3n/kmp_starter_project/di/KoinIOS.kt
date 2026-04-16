@@ -1,8 +1,8 @@
 package de.sh3n.kmp_starter_project.di
 
 import com.arkivanov.decompose.ComponentContext
-import de.sh3n.kmp_starter_project.navigation.DefaultRootComponent
-import de.sh3n.kmp_starter_project.navigation.RootComponent
+import de.sh3n.kmp_starter_project.root.DefaultRootComponent
+import de.sh3n.kmp_starter_project.root.RootComponent
 import org.koin.core.component.KoinComponent
 import org.koin.core.context.startKoin
 

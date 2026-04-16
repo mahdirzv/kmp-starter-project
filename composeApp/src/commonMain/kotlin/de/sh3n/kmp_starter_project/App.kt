@@ -5,8 +5,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import de.sh3n.kmp_starter_project.navigation.RootComponent
-import de.sh3n.kmp_starter_project.ui.RootContent
+import de.sh3n.kmp_starter_project.root.RootComponent
+import de.sh3n.kmp_starter_project.root.ui.RootContent
 import de.sh3n.kmp_starter_project.ui.theme.AppTheme
 
 @Composable

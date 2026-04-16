@@ -1,4 +1,4 @@
-package de.sh3n.kmp_starter_project.ui
+package de.sh3n.kmp_starter_project.root.ui
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -14,8 +14,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.extensions.compose.pages.ChildPages
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
-import de.sh3n.kmp_starter_project.navigation.RootComponent
-import de.sh3n.kmp_starter_project.ui.screens.settings.SettingsScreen
+import de.sh3n.kmp_starter_project.home.ui.HomeScreen
+import de.sh3n.kmp_starter_project.root.RootComponent
+import de.sh3n.kmp_starter_project.settings.ui.SettingsScreen
 
 @Composable
 fun RootContent(component: RootComponent, modifier: Modifier = Modifier) {
@@ -46,12 +47,12 @@ fun RootContent(component: RootComponent, modifier: Modifier = Modifier) {
             onPageSelected = component::selectTab,
         ) { _, tab ->
             when (tab) {
-                is RootComponent.Tab.Home -> HomeTabContent(
+                is RootComponent.Tab.Home -> HomeScreen(
                     component = tab.component,
                     modifier = Modifier.padding(innerPadding),
                 )
                 is RootComponent.Tab.Settings -> SettingsScreen(
-                    component = tab.component.component,
+                    component = tab.component,
                     modifier = Modifier.padding(innerPadding),
                 )
             }
