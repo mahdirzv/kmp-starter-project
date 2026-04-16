@@ -72,6 +72,10 @@ shared/src/commonMain/kotlin/.../
 ### Optional pack modules
 
 These are real Gradle/KMP pack modules so Android Studio imports `kmp/auth`, `kmp/room_data`, and `kmp/ui_theme` directly as Kotlin/Compose source modules instead of nested reference trees.
+Included Gradle module ids:
+- `:kmp:auth`
+- `:kmp:room_data`
+- `:kmp:ui_theme`
 
 ```text
 kmp/auth/
