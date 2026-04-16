@@ -34,3 +34,6 @@ plugins {
 
 include(":composeApp")
 include(":shared")
+include(":kmp:auth")
+include(":kmp:room_data")
+include(":kmp:ui_theme")

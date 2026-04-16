@@ -22,7 +22,7 @@ composeApp/                 # Compose Multiplatform UI module
   src/androidMain/...       # Android entry points
   src/jvmMain/...           # Desktop entry point
 iosApp/                     # Native iOS app (SwiftUI entry point)
-kmp/                        # Flattened optional pack source trees
+kmp/                        # Optional KMP pack modules with real source-set roots
 gradle/libs.versions.toml   # Dependency versions (single source of truth)
 ```
 
@@ -46,27 +46,26 @@ shared/src/commonMain/kotlin/com/example/kmp_starter_project/
   di/Modules.kt
 ```
 
-## Optional Pack Trees
+## Optional Pack Modules
 
-These are reference/import sources, not active Gradle modules in the base app.
+These are real Gradle/KMP pack modules, not loose reference folders or nested submodule trees.
 
 ```text
 kmp/auth/
-  ui/AuthScreen.kt
-  data/NoOpAuthRepository.kt
-  domain/AuthRepository.kt
-  di/AuthModule.kt
+  src/commonMain/kotlin/auth/
+    data/
+    domain/
+    di/
+    ui/
 
-kmp/room_data/tasks/
-  data/
-  domain/
-  di/
+kmp/room_data/
+  src/commonMain/kotlin/tasks/
+    data/
+    domain/
+    di/
 
 kmp/ui_theme/
-  Color.kt
-  Theme.kt
-  Tokens.kt
-  Type.kt
+  src/commonMain/kotlin/ui/theme/
 ```
 
 ## Scope
@@ -78,7 +77,7 @@ kmp/ui_theme/
 - feature-first structure for app and shared code
 - theme token system
 - expect/actual scaffolding when needed
-- flattened pack source references under `kmp/`
+- optional pack modules under `kmp/` with real source-set roots
 
 ### Not included by default
 - networking / HTTP client
@@ -96,7 +95,7 @@ kmp/ui_theme/
 | Add shared feature logic | `shared/src/commonMain/.../{feature}/` | Keep component + implementation together unless a deeper split adds value |
 | Change root wiring | `shared/.../root/` + `composeApp/.../root/ui/` | Root owns navigation shell only |
 | Change theme | `composeApp/.../ui/theme/` | Colors, typography, tokens, theme |
-| Update reusable pack sources | `kmp/` | Keep pack trees flat and feature-first |
+| Update reusable pack modules | `kmp/` | Keep each pack as a single imported Gradle module with flat source-set roots under that pack |
 | Platform-specific code | `shared/src/{platform}Main/` | Use `expect`/`actual` |
 | DI wiring | `shared/.../di/Modules.kt` | Keep wiring minimal |
 
@@ -115,6 +114,7 @@ iOS:      iOSApp → initKoin → RootComponent → SwiftUI bridge
 - Do not reintroduce folders like `ui/screens/*`, `presentation/*`, or `navigation/tabs/*` unless there is a strong reason.
 - Keep shared UI tokenized; avoid hardcoded colors, spacing, or sizing.
 - Keep the base app minimal; move reusable extensions into packs.
+- Keep pack internals flat inside each pack's `src/...` roots, and keep the pack directory itself as the module root so the IDE imports it cleanly.
 - Use `expect`/`actual` for platform-specific logic.
 - Repository/network/auth/server concerns stay out of the live base unless intentionally added.
 
