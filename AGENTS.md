@@ -1,6 +1,6 @@
 # KMP Base Scaffold
 
-**Generated:** 2026-04-03 | **Updated:** 2026-04-15 | **Branch:** trim/kmp-base
+**Updated:** 2026-04-16 | **Branch:** main
 
 Minimal Kotlin Multiplatform scaffold targeting Android, iOS, and Desktop (JVM).
 
@@ -15,49 +15,94 @@ Minimal Kotlin Multiplatform scaffold targeting Android, iOS, and Desktop (JVM).
 
 ## Project Structure
 
-```
-shared/                     # KMP shared module (navigation, DI, smoke-test logic)
+```text
+shared/                     # Shared app logic, feature components, root wiring, DI
 composeApp/                 # Compose Multiplatform UI module
-  src/commonMain/...        # shared UI + theme tokens
+  src/commonMain/...        # App + feature UIs + shared theme tokens
   src/androidMain/...       # Android entry points
   src/jvmMain/...           # Desktop entry point
 iosApp/                     # Native iOS app (SwiftUI entry point)
+kmp/                        # Flattened optional pack source trees
 gradle/libs.versions.toml   # Dependency versions (single source of truth)
+```
+
+## Live App Layout
+
+```text
+composeApp/src/commonMain/kotlin/de/sh3n/kmp_starter_project/
+  App.kt
+  home/ui/HomeScreen.kt
+  settings/ui/SettingsScreen.kt
+  root/ui/RootContent.kt
+  ui/theme/
+
+shared/src/commonMain/kotlin/de/sh3n/kmp_starter_project/
+  home/HomeComponent.kt
+  home/DefaultHomeComponent.kt
+  settings/SettingsComponent.kt
+  settings/DefaultSettingsComponent.kt
+  root/RootComponent.kt
+  root/DefaultRootComponent.kt
+  di/Modules.kt
+```
+
+## Optional Pack Trees
+
+These are reference/import sources, not active Gradle modules in the base app.
+
+```text
+kmp/auth/
+  ui/AuthScreen.kt
+  data/NoOpAuthRepository.kt
+  domain/AuthRepository.kt
+  di/AuthModule.kt
+
+kmp/room_data/tasks/
+  data/
+  domain/
+  di/
+
+kmp/ui_theme/
+  Color.kt
+  Theme.kt
+  Tokens.kt
+  Type.kt
 ```
 
 ## Scope
 
 ### Keep in base
 - Gradle / settings / version-catalog plumbing
-- shared source-set structure
 - platform entry points for Android / iOS / JVM
-- app shell + navigation shell
-- DI baseline
+- small root shell + DI baseline
+- feature-first structure for app and shared code
 - theme token system
-- one minimal smoke-test screen
 - expect/actual scaffolding when needed
+- flattened pack source references under `kmp/`
 
 ### Not included by default
 - networking / HTTP client
-- repository layer
-- auth provider implementations
+- production repository implementations
+- auth provider integrations
 - server module
 - web target
-- product/demo feature flows
+- large product/demo flows
 
 ## Where to Look
 
 | Task | Location | Notes |
 |------|----------|-------|
-| Add a screen | `composeApp/src/commonMain/.../ui/screens/{name}/` | Keep it small and tokenized |
-| Add a tab | `shared/.../navigation/tabs/` + root component | Only if the base really needs it |
+| Add a screen | `composeApp/src/commonMain/.../{feature}/ui/` | Prefer `home/ui`, `settings/ui`, etc. |
+| Add shared feature logic | `shared/src/commonMain/.../{feature}/` | Keep component + implementation together unless a deeper split adds value |
+| Change root wiring | `shared/.../root/` + `composeApp/.../root/ui/` | Root owns navigation shell only |
 | Change theme | `composeApp/.../ui/theme/` | Colors, typography, tokens, theme |
+| Update reusable pack sources | `kmp/` | Keep pack trees flat and feature-first |
 | Platform-specific code | `shared/src/{platform}Main/` | Use `expect`/`actual` |
-| DI wiring | `shared/.../di/Modules.kt` | Keep the base wiring minimal |
+| DI wiring | `shared/.../di/Modules.kt` | Keep wiring minimal |
 
 ## Initialization Flow
 
-```
+```text
 Android:  StarterApp.onCreate → startKoin → MainActivity → RootComponent → App
 Desktop:  main() → startKoin → RootComponent → Window { App }
 iOS:      iOSApp → initKoin → RootComponent → SwiftUI bridge
@@ -66,24 +111,25 @@ iOS:      iOSApp → initKoin → RootComponent → SwiftUI bridge
 ## Architecture & Conventions
 
 - **commonMain** stays platform-neutral.
+- Prefer feature-first paths over metadata-heavy nesting.
+- Do not reintroduce folders like `ui/screens/*`, `presentation/*`, or `navigation/tabs/*` unless there is a strong reason.
 - Keep shared UI tokenized; avoid hardcoded colors, spacing, or sizing.
-- Keep navigation and DI baseline only; move opinionated features to packs later.
-- Prefer deleting unused modules and wiring rather than leaving dead code.
+- Keep the base app minimal; move reusable extensions into packs.
 - Use `expect`/`actual` for platform-specific logic.
-- Repository/network/auth/server concerns are out of scope for the base.
+- Repository/network/auth/server concerns stay out of the live base unless intentionally added.
 
 ## Build & Verify
 
 ```shell
-./gradlew :shared:build
-./gradlew :composeApp:build
+./gradlew --no-daemon build
 ```
 
-If a change breaks either target, fix the wiring cleanly before moving on.
+Use the full root build as the default verification step after structural changes.
 
-## Known Gaps
+## Agent Rules
 
-- No feature packs yet
-- Smoke test is intentionally minimal
-- Tests are still sparse
-- iOS build is validated indirectly through shared/common compilation and platform entry structure
+- Treat `README.md` as the user-facing overview and keep `AGENTS.md` as the implementation-oriented companion.
+- If you change structure, update both files in the same commit.
+- Prefer documenting actual live paths, not aspirational ones.
+- Keep pack examples aligned with the real `kmp/` tree.
+- Do not describe the scaffold using outdated nested paths after refactors.
