@@ -1,6 +1,6 @@
 # KMP Base Scaffold
 
-**Updated:** 2026-04-16 | **Branch:** main
+**Updated:** 2026-04-16
 
 Minimal Kotlin Multiplatform scaffold targeting Android, iOS, and Desktop (JVM).
 
@@ -49,6 +49,10 @@ shared/src/commonMain/kotlin/com/example/kmp_starter_project/
 ## Optional Pack Modules
 
 These are real Gradle/KMP pack modules, not loose reference folders or nested submodule trees.
+Included module ids:
+- `:kmp:auth`
+- `:kmp:room_data`
+- `:kmp:ui_theme`
 
 ```text
 kmp/auth/
