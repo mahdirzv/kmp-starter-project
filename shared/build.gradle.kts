@@ -46,7 +46,7 @@ kotlin {
 }
 
 android {
-    namespace = "de.sh3n.kmp_starter_project.shared"
+    namespace = "com.example.kmp_starter_project.shared"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11

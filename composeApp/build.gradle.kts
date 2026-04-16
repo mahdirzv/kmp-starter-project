@@ -52,11 +52,11 @@ kotlin {
 }
 
 android {
-    namespace = "de.sh3n.kmp_starter_project"
+    namespace = "com.example.kmp_starter_project"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "de.sh3n.kmp_starter_project"
+        applicationId = "com.example.kmp_starter_project"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
@@ -84,11 +84,11 @@ dependencies {
 
 compose.desktop {
     application {
-        mainClass = "de.sh3n.kmp_starter_project.MainKt"
+        mainClass = "com.example.kmp_starter_project.MainKt"
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "de.sh3n.kmp_starter_project"
+            packageName = "com.example.kmp_starter_project"
             packageVersion = "1.0.0"
         }
     }

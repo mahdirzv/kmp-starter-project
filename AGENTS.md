@@ -29,14 +29,14 @@ gradle/libs.versions.toml   # Dependency versions (single source of truth)
 ## Live App Layout
 
 ```text
-composeApp/src/commonMain/kotlin/de/sh3n/kmp_starter_project/
+composeApp/src/commonMain/kotlin/com/example/kmp_starter_project/
   App.kt
   home/ui/HomeScreen.kt
   settings/ui/SettingsScreen.kt
   root/ui/RootContent.kt
   ui/theme/
 
-shared/src/commonMain/kotlin/de/sh3n/kmp_starter_project/
+shared/src/commonMain/kotlin/com/example/kmp_starter_project/
   home/HomeComponent.kt
   home/DefaultHomeComponent.kt
   settings/SettingsComponent.kt
