@@ -2,7 +2,7 @@
 
 A minimal Kotlin Multiplatform starter for Android, iOS, and Desktop (JVM).
 
-The scaffold is intentionally small, feature-first, and easy to extend with optional packs. The live app modules stay clean, while reusable pack source trees live under `kmp/` as flattened reference material.
+The scaffold is intentionally small, feature-first, and easy to extend with optional packs. The live app modules stay clean, while reusable pack modules live under `kmp/` with proper KMP source-set roots so they remain usable in the IDE.
 
 ---
 
@@ -49,7 +49,7 @@ composeApp/                 # Compose Multiplatform UI module
   src/androidMain/...       # Android entry points
   src/jvmMain/...           # Desktop entry point
 iosApp/                     # Native iOS app (SwiftUI entry point)
-kmp/                        # Optional flattened pack source trees (reference/import material)
+kmp/                        # Optional KMP pack modules with real source-set roots
 gradle/libs.versions.toml   # Dependency versions (single source of truth)
 ```
 
@@ -69,25 +69,26 @@ shared/src/commonMain/kotlin/.../
   di/Modules.kt
 ```
 
-### Optional pack source trees
+### Optional pack modules
+
+These are real Gradle/KMP pack modules so Android Studio treats them as Kotlin/Compose source, not loose reference files.
 
 ```text
 kmp/auth/
-  ui/
-  data/
-  domain/
-  di/
+  shared/src/commonMain/kotlin/auth/
+    data/
+    domain/
+    di/
+  composeApp/src/commonMain/kotlin/auth/ui/
 
-kmp/room_data/tasks/
-  data/
-  domain/
-  di/
+kmp/room_data/
+  shared/src/commonMain/kotlin/tasks/
+    data/
+    domain/
+    di/
 
 kmp/ui_theme/
-  Color.kt
-  Theme.kt
-  Tokens.kt
-  Type.kt
+  composeApp/src/commonMain/kotlin/ui/theme/
 ```
 
 ## Architecture
@@ -99,7 +100,7 @@ This base includes:
 - feature-first shared/component structure
 - DI baseline
 - theme token system
-- optional pack source trees under `kmp/`
+- optional pack modules under `kmp/` with usable source-set roots
 
 Not included by default in the live scaffold:
 - networking / HTTP client
@@ -115,6 +116,7 @@ Not included by default in the live scaffold:
 - Avoid folders like `ui/screens/*`, `presentation/*`, or `navigation/tabs/*` unless they add real value.
 - Keep shared UI tokenized; avoid hardcoded spacing, radii, and colors.
 - Keep the base app small; push reusable extensions into packs.
+- Keep pack internals flat inside the source root, but do not remove the KMP module/source-set scaffolding those packs need to stay usable.
 
 ## Working with an AI agent?
 
