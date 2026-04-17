@@ -8,6 +8,12 @@
     { "find": "com.example.kmpstarterproject",    "replace_with": "{{bundle_id}}" },
     { "find": "Kmpstarterproject",                "replace_with": "{{project_root_name}}" }
   ],
+  "remove_on_scaffold": [
+    "LICENSE",
+    "README.md",
+    "SECURITY.md"
+  ],
+  "generate_readme": "# {{project_name}}\n\n> Scaffolded from [kmp-starter-project](https://github.com/mahdirzv/kmp-starter-project). See [`AGENTS.md`](./AGENTS.md) for architecture and module wiring.\n\n## Targets\n\n- **Desktop (JVM)**: `./gradlew --no-daemon :composeApp:run`\n- **Android**: `./gradlew --no-daemon :composeApp:assembleDebug`\n- **iOS**: open `iosApp/` in Xcode\n\n## Project identifiers\n\n| | Value |\n|---|---|\n| Root name | `{{project_root_name}}` |\n| Package | `{{package_name}}` |\n| Bundle ID | `{{bundle_id}}` |\n\n## Learn more\n\n- [`AGENTS.md`](./AGENTS.md) — architecture, DI modules, pack wiring.\n- Starter source: https://github.com/mahdirzv/kmp-starter-project\n",
   "packs": {
     "auth": {
       "paths": ["kmp/auth"],
