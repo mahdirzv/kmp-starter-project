@@ -1,0 +1,16 @@
+{
+  "scaffold_schema_version": "1",
+  "stack": "kmp",
+  "description": "KMP (Kotlin Multiplatform) starter: Compose Multiplatform UI, Android/iOS/JVM targets, Koin DI, Decompose navigation.",
+  "placeholders": [
+    { "find": "com.example.kmp_starter_project", "replace_with": "{{package_name}}" },
+    { "find": "com/example/kmp_starter_project", "replace_with": "{{package_path}}" },
+    { "find": "Kmpstarterproject", "replace_with": "{{project_root_name}}" }
+  ],
+  "packs": {
+    "auth":     { "paths": ["kmp/auth"],      "settings_gradle_include_line": "include(\":kmp:auth\")" },
+    "room":     { "paths": ["kmp/room_data"], "settings_gradle_include_line": "include(\":kmp:room_data\")" },
+    "ui_theme": { "paths": ["kmp/ui_theme"],  "settings_gradle_include_line": "include(\":kmp:ui_theme\")" },
+    "ci":       { "paths": [".github"] }
+  }
+}
