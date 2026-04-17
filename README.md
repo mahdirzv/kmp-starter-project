@@ -125,3 +125,12 @@ Not included by default in the live scaffold:
 ## Working with an AI agent?
 
 Send [`AGENTS.md`](./AGENTS.md) to your agent instead of this file. It contains the repo-specific structure, conventions, and update rules.
+
+## Consumed by the scaffolding skill
+
+This repo is a canonical source for [`hermes-skill-scaffold`](https://github.com/mahdirzv/hermes-skill-scaffold). When an agent runs `scaffold.py create kmp MyApp`, it shallow-clones a pinned tag of this repo, copies it into the destination, then applies the find/replace rules declared in [`.scaffold.json`](./.scaffold.json) to rename the package namespace and project identifiers.
+
+Packs selection is subtractive — the scaffold starts from the full repo and deletes pack directories the user did not request, stripping the matching `include(...)` line from `settings.gradle.kts`. See `.scaffold.json` for the pack map.
+
+To consume manually without the skill: clone, then run find/replace yourself using the pairs in `.scaffold.json`.
+
