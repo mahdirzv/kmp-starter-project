@@ -137,3 +137,36 @@ Use the full root build as the default verification step after structural change
 - Prefer documenting actual live paths, not aspirational ones.
 - Keep pack examples aligned with the real `kmp/` tree.
 - Do not describe the scaffold using outdated nested paths after refactors.
+
+## Optional packs — reference modules, not wired dependencies
+
+`kmp/auth`, `kmp/room_data`, and `kmp/ui_theme` are compiled as separate Gradle modules and included in `settings.gradle.kts`. **They are not currently consumed by `composeApp` or `shared`.** `composeApp/build.gradle.kts` has only `implementation(projects.shared)` — no dependency on `:kmp:*`.
+
+Treat them as reference implementations: skeletons and DI boilerplate you follow when you decide to wire a feature. Not ready-to-use libraries.
+
+### Why not wired yet?
+
+Each pack's `build.gradle.kts` declares only `kotlin { jvm() }`. `composeApp/commonMain` targets android + ios + jvm and cannot depend on a jvm-only module from its common source set. Full cross-target wiring is tracked as a scaffold-factory v0.5.0 item.
+
+### How to wire `kmp:ui_theme` into `composeApp` (the simplest pack)
+
+1. In `kmp/ui_theme/build.gradle.kts` add `androidTarget()` and the iOS targets to the `kotlin { ... }` block, mirroring `composeApp/build.gradle.kts`.
+2. In `composeApp/build.gradle.kts` add `implementation(projects.kmp.uiTheme)` to `commonMain.dependencies` (Gradle type-safe project accessors are enabled in `settings.gradle.kts`).
+3. In `composeApp/src/commonMain/kotlin/.../ui/theme/Theme.kt` delete the duplicate and import `ui.theme.AppTheme` from the pack instead.
+
+### Same pattern for `:kmp:auth` / `:kmp:room_data`
+
+1. Expand targets as above.
+2. Add `implementation(projects.kmp.auth)` (or `.roomData`) to `composeApp`.
+3. Register the pack's Koin module in `shared/src/commonMain/kotlin/.../di/Modules.kt`:
+   ```kotlin
+   import auth.di.authModule
+   import tasks.di.dataModule
+
+   val sharedModules = listOf(sharedModule, authModule, dataModule)
+   ```
+4. Consume the pack's API from `composeApp` or a feature component.
+
+### Why ship them at all?
+
+Saves the blank-page step when you add auth or storage later — the skeleton, DI boilerplate, and domain interfaces are already there. Copy into the right module or follow the wiring steps above.

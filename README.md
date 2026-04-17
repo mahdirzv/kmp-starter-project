@@ -77,6 +77,8 @@ Included Gradle module ids:
 - `:kmp:room_data`
 - `:kmp:ui_theme`
 
+> **Important:** these packs are **reference modules, not wired dependencies**. `composeApp`/`shared` do not import from them today — each pack is jvm-only and the app targets android + ios + jvm. Treat them as implementation blueprints: skeleton + DI + domain interfaces you copy or wire in manually. See [`AGENTS.md`](./AGENTS.md#optional-packs--reference-modules-not-wired-dependencies) for the wiring steps.
+
 ```text
 kmp/auth/
   src/commonMain/kotlin/auth/
