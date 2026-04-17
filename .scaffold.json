@@ -5,6 +5,7 @@
   "placeholders": [
     { "find": "com.example.kmp_starter_project", "replace_with": "{{package_name}}" },
     { "find": "com/example/kmp_starter_project",  "replace_with": "{{package_path}}" },
+    { "find": "com.example.kmpstarterproject",    "replace_with": "{{bundle_id}}" },
     { "find": "Kmpstarterproject",                "replace_with": "{{project_root_name}}" }
   ],
   "packs": {
