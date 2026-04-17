@@ -128,7 +128,7 @@ Send [`AGENTS.md`](./AGENTS.md) to your agent instead of this file. It contains 
 
 ## Consumed by the scaffolding skill
 
-This repo is a canonical source for [`hermes-skill-scaffold`](https://github.com/mahdirzv/hermes-skill-scaffold). When an agent runs `scaffold.py create kmp MyApp`, it shallow-clones a pinned tag of this repo, copies it into the destination, then applies the find/replace rules declared in [`.scaffold.json`](./.scaffold.json) to rename the package namespace and project identifiers.
+This repo is a canonical source for [`scaffold-factory`](https://github.com/mahdirzv/scaffold-factory). When an agent runs `scaffold.py create kmp MyApp`, it shallow-clones a pinned tag of this repo, copies it into the destination, then applies the find/replace rules declared in [`.scaffold.json`](./.scaffold.json) to rename the package namespace and project identifiers.
 
 Packs selection is subtractive — the scaffold starts from the full repo and deletes pack directories the user did not request, stripping the matching `include(...)` line from `settings.gradle.kts`. See `.scaffold.json` for the pack map.
 
