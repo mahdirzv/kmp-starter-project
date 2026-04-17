@@ -4,13 +4,37 @@
   "description": "KMP (Kotlin Multiplatform) starter: Compose Multiplatform UI, Android/iOS/JVM targets, Koin DI, Decompose navigation.",
   "placeholders": [
     { "find": "com.example.kmp_starter_project", "replace_with": "{{package_name}}" },
-    { "find": "com/example/kmp_starter_project", "replace_with": "{{package_path}}" },
-    { "find": "Kmpstarterproject", "replace_with": "{{project_root_name}}" }
+    { "find": "com/example/kmp_starter_project",  "replace_with": "{{package_path}}" },
+    { "find": "Kmpstarterproject",                "replace_with": "{{project_root_name}}" }
   ],
   "packs": {
-    "auth":     { "paths": ["kmp/auth"],      "settings_gradle_include_line": "include(\":kmp:auth\")" },
-    "room":     { "paths": ["kmp/room_data"], "settings_gradle_include_line": "include(\":kmp:room_data\")" },
-    "ui_theme": { "paths": ["kmp/ui_theme"],  "settings_gradle_include_line": "include(\":kmp:ui_theme\")" },
-    "ci":       { "paths": [".github"] }
+    "auth": {
+      "paths": ["kmp/auth"],
+      "settings_gradle_include_line": "include(\":kmp:auth\")",
+      "post_scaffold_note": "    kmp:auth       → register authModule in shared/src/.../di/Modules.kt"
+    },
+    "room": {
+      "paths": ["kmp/room_data"],
+      "settings_gradle_include_line": "include(\":kmp:room_data\")",
+      "post_scaffold_note": "    kmp:room_data  → register dataModule in shared/src/.../di/Modules.kt"
+    },
+    "ui_theme": {
+      "paths": ["kmp/ui_theme"],
+      "settings_gradle_include_line": "include(\":kmp:ui_theme\")",
+      "post_scaffold_note": "    kmp:ui_theme   → add implementation(projects.kmp.uiTheme) to composeApp"
+    },
+    "ci": {
+      "paths": [".github"]
+    }
+  },
+  "post_scaffold_notes": {
+    "heading": [
+      "⚠ Heads up: the following KMP packs are shipped as REFERENCE modules,",
+      "  not wired dependencies. composeApp/shared do not import from them yet.",
+      "  To use them, follow the wiring steps in the project's AGENTS.md:"
+    ],
+    "footer": [
+      "  Or remove them with --no-auth --no-theme (and skip --room) if unneeded."
+    ]
   }
 }
